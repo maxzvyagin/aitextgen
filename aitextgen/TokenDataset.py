@@ -390,7 +390,7 @@ def encode_tokens_from_list(
 
         encoded_texts = tokenizer(
             batch,
-            add_special_tokens=False,
+            add_special_tokens=True,
             return_token_type_ids=False,
             return_attention_mask=False,
         )["input_ids"]
