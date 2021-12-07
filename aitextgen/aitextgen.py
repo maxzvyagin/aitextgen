@@ -90,6 +90,7 @@ class aitextgen:
         cache_dir: str = "aitextgen",
         tf_gpt2: str = None,
         to_gpu: bool = False,
+        to_xpu: bool = True,
         to_fp16: bool = False,
         verbose: bool = False,
         gradient_checkpointing: bool = False,
@@ -845,6 +846,9 @@ class aitextgen:
         """Moves the model to the specified CPU."""
 
         self.model.to(torch.device("cpu", index))
+
+    def to_xpu(self):
+        self.model.to(torch.device("xpu"))
 
     def to_fp16(self) -> None:
         """
