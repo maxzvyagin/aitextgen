@@ -274,6 +274,9 @@ class aitextgen:
                 self.to_fp16()
             self.to_gpu()
 
+        if to_xpu:
+            self.to_xpu()
+
     def generate(
         self,
         n: int = 1,
