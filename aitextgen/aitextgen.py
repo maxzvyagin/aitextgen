@@ -28,6 +28,7 @@ from transformers.models.gpt2.convert_gpt2_original_tf_checkpoint_to_pytorch imp
 
 from pytorch_lightning.plugins.training_type.single_device import SingleDevicePlugin
 from pytorch_lightning.accelerators.accelerator import Accelerator
+from pytorch_lightning.plugins import PrecisionPlugin
 
 from .colab import create_gdrive_folder
 from .TokenDataset import TokenDataset
@@ -712,7 +713,7 @@ class aitextgen:
                 fp16 = True
 
         device = torch.device("xpu")
-        accelerator = Accelerator(training_type_plugin=SingleDevicePlugin(device=device))
+        accelerator = Accelerator(training_type_plugin=SingleDevicePlugin(device=device), precision_plugin=PrecisionPlugin())
 
         train_params = dict(
             accumulate_grad_batches=gradient_accumulation_steps,
