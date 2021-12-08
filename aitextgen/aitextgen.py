@@ -760,6 +760,9 @@ class aitextgen:
             train_params["distributed_backend"] = "ddp"
 
         trainer = pl.Trainer(**train_params)
+        
+        pdb.set_trace()
+        
         trainer.fit(train_model)
 
         logger.info(f"Saving trained model pytorch_model.bin to /{output_dir}")
