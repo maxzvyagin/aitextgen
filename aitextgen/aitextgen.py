@@ -26,6 +26,9 @@ from transformers.models.gpt2.convert_gpt2_original_tf_checkpoint_to_pytorch imp
     convert_gpt2_checkpoint_to_pytorch,
 )
 
+from pytorch_lightning.plugins.training_type.single_device import SingleDevicePlugin
+from pytorch_lightning.accelerators.accelerator import Accelerator
+
 from .colab import create_gdrive_folder
 from .TokenDataset import TokenDataset
 from .train import ATGProgressBar, ATGTransformer
@@ -708,10 +711,12 @@ class aitextgen:
                 logger.info("Setting FP16 to True for DeepSpeed ZeRO Training.")
                 fp16 = True
 
+        device = torch.device("xpu")
+        accelerator = Accelerator(training_type_plugin=SingleDevicePlugin(device=device))
+
         train_params = dict(
             accumulate_grad_batches=gradient_accumulation_steps,
-            accelerator='xpu',
-            strategy='ddp',
+            accelerator=accelerator,
             max_steps=num_steps,
             gradient_clip_val=max_grad_norm,
             checkpoint_callback=False,
