@@ -711,7 +711,7 @@ class aitextgen:
         train_params = dict(
             accumulate_grad_batches=gradient_accumulation_steps,
             accelerator='xpu',
-            strategy='ddp'
+            strategy='ddp',
             max_steps=num_steps,
             gradient_clip_val=max_grad_norm,
             checkpoint_callback=False,
